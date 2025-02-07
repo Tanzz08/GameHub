@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">GameHub</string>
     <string name="title_home">Home</string>
@@ -8,8 +9,4 @@
     <string name="developers">Developers</string>
     <string name="publishers">Publishers</string>
     <string name="favorite_button">Favorite Button</string>
-    <string name="something_wrong">Oops.. something went wrong</string>
-    <string name="summary">Summary</string>
-    <string name="details">Details</string>
-
 </resources>
