@@ -22,3 +22,5 @@ dependencyResolutionManagement {
 rootProject.name = "GameHub"
 include(":app")
 include(":core")
+include(":favorite")
+include(":search")

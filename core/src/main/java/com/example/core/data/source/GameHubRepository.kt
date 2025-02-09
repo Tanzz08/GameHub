@@ -17,6 +17,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.runBlocking
 
 class GameHubRepository(
     private val remoteDataSource: RemoteDataSource,
@@ -63,6 +64,29 @@ class GameHubRepository(
 
         }.asFlow()
 
+    override fun searchGames(query: String): Flow<Resource<List<GamesModel>>> =
+        flow {
+            emit(Resource.Loading())
+            when(val response = remoteDataSource.searchGames(query).first()) {
+                is ApiResponse.Success -> {
+                    val gameList = DataMapper.mapResponsesToDomain(response.data)
+                    val gameEntity = DataMapper.mapResponsesToEntities(response.data)
+                    appExecutors.diskIO().execute {
+                        runBlocking {
+                            localDataSource.insertGames(gameEntity)
+                        }
+                    }
+                    emit(Resource.Success(gameList))
+                }
+                is ApiResponse.Error -> {
+                    emit(Resource.Error(response.errorMessage))
+                }
+                is ApiResponse.Empty -> {
+                    emit(Resource.Error("Data is empty"))
+                }
+            }
+        }
+
     override fun getGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>> {
         return flow {
             emit(Resource.Loading())
@@ -95,8 +119,36 @@ class GameHubRepository(
         }
     }
 
-    override fun setFavoriteTourism(game: GamesModel, state: Boolean) {
+    override fun getNewFavoriteGames(): Flow<List<GamesModel>> {
+        return localDataSource.getNewFavoriteGame().map {
+            DataMapper.mapNewEntitiesToDomain(it)
+        }
+    }
+
+    override suspend fun updateFavoriteGame(game: GamesModel) {
         val gameEntity = DataMapper.mapDomainToEntity(game)
-        appExecutors.diskIO().execute{ localDataSource.setFavoriteGame(gameEntity, state)}
+        appExecutors.diskIO().execute{
+            localDataSource.updateFavoriteGame(gameEntity)
+        }
+    }
+
+    override fun setFavoriteGames(game: GamesModel, state: Boolean) {
+        val gameEntity = DataMapper.mapDomainToEntity(game)
+        Log.d("GameHubRepository", "Setting favorite for ${game.name} to $state")
+        appExecutors.diskIO().execute {
+            Log.d("GameHubRepository", "Before update: ${gameEntity.name}, isFavorite: ${gameEntity.isFavorite}")
+            localDataSource.setFavoriteGame(gameEntity, state)
+            Log.d("GameHubRepository", "After update: ${gameEntity.name}, isFavorite: ${gameEntity.isFavorite}")
+        }
+    }
+
+    override fun setNewFavoriteGames(game: GamesModel, state: Boolean) {
+        val gameEntity = DataMapper.mapDomainToNewEntity(game)
+        Log.d("GameHubRepository", "Setting favorite for ${game.name} to $state")
+        appExecutors.diskIO().execute {
+            Log.d("GameHubRepository", "Before update: ${gameEntity.name}, isFavorite: ${gameEntity.isFavorite}")
+            localDataSource.setNewFavoriteGame(gameEntity, state)
+            Log.d("GameHubRepository", "After update: ${gameEntity.name}, isFavorite: ${gameEntity.isFavorite}")
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.gamehub.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,6 +41,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnSearch.setOnClickListener {
+            val uri = Uri.parse("gamehub://search")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+
         setupAdapters()
         observeNewReleasesGames()
         observePopularGames()
@@ -60,11 +66,11 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapters() {
         newReleasesAdapter.onItemClick = { selectedData ->
-            startDetailActivity(selectedData.gameId.toInt(), selectedData)
+            startDetailActivity(selectedData.gameId!!.toInt(), selectedData)
         }
 
         gameListAdapter.onItemClick = { selectedData ->
-            startDetailActivity(selectedData.gameId.toInt(), selectedData)
+            startDetailActivity(selectedData.gameId!!.toInt(), selectedData)
         }
 
         with(binding.rvNewReleases) {

@@ -11,9 +11,19 @@ interface IGameHubRepository {
 
     fun getNewReleasesGame(): Flow<Resource<List<GamesModel>>>
 
+    fun searchGames(query: String): Flow<Resource<List<GamesModel>>>
+
     fun getGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>>
 
     fun getFavoriteGames(): Flow<List<GamesModel>>
 
-    fun setFavoriteTourism(game: GamesModel, state: Boolean)
+    fun getNewFavoriteGames(): Flow<List<GamesModel>>
+
+    suspend fun updateFavoriteGame(game: GamesModel)
+
+    fun setFavoriteGames(game: GamesModel, state: Boolean)
+
+    fun setNewFavoriteGames(game: GamesModel, state: Boolean)
+
+
 }

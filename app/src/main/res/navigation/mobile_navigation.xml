@@ -12,10 +12,13 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.gamehub.ui.dashboard.FavoriteFragment"
-        android:label="@string/title_dashboard"
+        android:id="@+id/navigation_favorite"
+        android:name="com.example.gamehub.ui.favorite.FavoriteFragment"
+        android:label="@string/title_favorite"
         tools:layout="@layout/fragment_favorite" />
+
+
+
     <activity
         android:id="@+id/detailActivity"
         android:name="com.example.gamehub.ui.detail.DetailActivity"

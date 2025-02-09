@@ -11,17 +11,18 @@ object DataMapper {
         input.map {
             val games = GamesListEntity(
                 gameId = it.id.toString(),
-                name = it.name,
-                backgroundImage = it.backgroundImage,
+                name = it.name ,
+                backgroundImage = it.backgroundImage ?: "No data",
                 released = it.released,
-                genres = it.genres.joinToString { it.name },
-                parentPlatforms = it.parentPlatforms.joinToString { it.platform.name },
+                genres = it.genres.joinToString(separator = ", ") { it.name } ?: "No Data",
+                parentPlatforms = it.parentPlatforms.joinToString { it.platform.name } ?: "No Data",
                 isFavorite = false
             )
             gamesList.add(games)
         }
         return gamesList
     }
+
 
     fun mapResponsesToEntitiesNew(input: List<ResultsItem>): List<NewReleasesGames> {
         val gamesList = ArrayList<NewReleasesGames>()
@@ -40,7 +41,34 @@ object DataMapper {
         return gamesList
     }
 
+    fun mapResponsesToDomain(input: List<ResultsItem>): List<GamesModel> =
+        input.map {
+            GamesModel(
+                gameId = it.id.toString(),
+                name = it.name,
+                backgroundImage = it.backgroundImage ?: "",
+                released = it.released ?: "",
+                genres = it.genres.toString() ?: "",
+                parentPlatforms = it.parentPlatforms.map { it.platform.name }.toString(),
+                isFavorite = false
+            )
+        } ?: emptyList()
+
     fun mapEntitiesToDomain(input: List<GamesListEntity>): List<GamesModel> =
+        input.map {
+            GamesModel(
+                gameId = it.gameId,
+                name = it.name.toString(),
+                backgroundImage = it.backgroundImage,
+                released = it.released,
+                genres = it.genres.toString(),
+                parentPlatforms = it.parentPlatforms,
+                isFavorite = it.isFavorite,
+
+                )
+        }
+
+    fun mapNewEntitiesToDomain(input: List<NewReleasesGames>): List<GamesModel> =
         input.map {
             GamesModel(
                 gameId = it.gameId,
@@ -49,9 +77,11 @@ object DataMapper {
                 released = it.released,
                 genres = it.genres,
                 parentPlatforms = it.parentPlatforms,
-                isFavorite = it.isFavorite
-            )
+                isFavorite = it.isFavorite,
+
+                )
         }
+
 
     fun mapEntitiesToDomainNew(input: List<NewReleasesGames>): List<GamesModel> =
         input.map {
@@ -62,27 +92,30 @@ object DataMapper {
                 released = it.released,
                 genres = it.genres,
                 parentPlatforms = it.parentPlatforms,
-                isFavorite = it.isFavorite
-            )
+                isFavorite = it.isFavorite,
+
+                )
         }
 
     fun mapDomainToEntity(input: GamesModel) = GamesListEntity(
-        gameId = input.gameId,
+        gameId = input.gameId ?: "",
         name = input.name,
-        backgroundImage = input.backgroundImage,
-        released = input.released,
+        backgroundImage = input.backgroundImage ?: "",
+        released = input.released ?: "",
         genres = input.genres,
-        parentPlatforms = input.parentPlatforms,
+        parentPlatforms = input.parentPlatforms ?: "",
         isFavorite = input.isFavorite
     )
 
-    fun mapDomainToEntityNew(input: GamesModel) = NewReleasesGames(
-        gameId = input.gameId,
-        name = input.name,
-        backgroundImage = input.backgroundImage,
-        released = input.released,
-        genres = input.genres,
-        parentPlatforms = input.parentPlatforms,
+    fun mapDomainToNewEntity(input: GamesModel) = NewReleasesGames(
+        gameId = input.gameId ?: "",
+        name = input.name ?: "",
+        backgroundImage = input.backgroundImage ?: "",
+        released = input.released ?: "",
+        genres = input.genres ?: "",
+        parentPlatforms = input.parentPlatforms ?: "",
         isFavorite = input.isFavorite
     )
+
+
 }

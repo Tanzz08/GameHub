@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/biruTuaKehitaman"
-    tools:context=".ui.dashboard.FavoriteFragment">
+    android:background="@color/biruTuaKehitaman">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -67,9 +66,19 @@
         android:layout_height="wrap_content"
         tools:listitem="@layout/item_favorite"
         android:layout_marginTop="16dp"
+        android:paddingBottom="?attr/actionBarSize"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/appBar" />
+
+    <include
+        android:id="@+id/view_empty"
+        layout="@layout/view_empty"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

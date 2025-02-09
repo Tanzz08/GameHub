@@ -103,6 +103,8 @@ class DetailActivity : AppCompatActivity() {
             binding.fabFavorite.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailViewModel.setFavoriteGames(detailGame, statusFavorite)
+                detailViewModel.setNewFavoriteGames(detailGame, statusFavorite)
+                detailViewModel.updateFavoriteGame(detailGame, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }

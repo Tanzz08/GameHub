@@ -25,4 +25,10 @@ interface ApiService {
         @Path("id") id: Int,
         @Query("key") apiKey: String
     ) : GameDetailResponse
+
+    @GET("games")
+    suspend fun getSearchGame(
+        @Query("key") apiKey: String,
+        @Query("search") search: String,
+    ) : ListGamesResponse
 }
