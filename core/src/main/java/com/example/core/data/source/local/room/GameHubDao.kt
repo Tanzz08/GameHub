@@ -21,7 +21,10 @@ interface GameHubDao {
     @Query("SELECT * FROM games where isFavorite = 1")
     fun getFavoriteGames(): Flow<List<GamesListEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Query("SELECT * FROM new_releases_games where isFavorite = 1")
+    fun getNewFavoriteGames(): Flow<List<NewReleasesGames>>
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertGames(game: List<GamesListEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -29,5 +32,11 @@ interface GameHubDao {
 
     @Update
     fun updateFavoriteGame(game: GamesListEntity)
+
+    @Query("SELECT EXISTS(SELECT 1 FROM games WHERE gameId = :gameId)")
+    suspend fun isGameExists(gameId: String): Boolean
+
+    @Update
+    fun updateNewFavoriteGame(game: NewReleasesGames)
 
 }

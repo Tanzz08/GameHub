@@ -1,6 +1,5 @@
 package com.example.gamehub.di
 
-import com.example.core.data.source.GameHubRepository
 import com.example.core.domain.usecase.GameHubInteractor
 import org.koin.dsl.module
 import com.example.core.domain.usecase.GameHubUseCase
@@ -14,7 +13,7 @@ val useCaseModule = module {
 
 val viewModelModule = module {
     viewModel {HomeViewModel(get())}
-    viewModel { DetailViewModel(get(), get()) }
+    viewModel { DetailViewModel(get()) }
 }
 
 

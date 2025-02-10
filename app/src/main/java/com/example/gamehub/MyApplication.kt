@@ -24,7 +24,6 @@ class MyApplication: Application() {
                     repositoryModule,
                     useCaseModule,
                     viewModelModule,
-                    repositoryModule
                 )
             )
 

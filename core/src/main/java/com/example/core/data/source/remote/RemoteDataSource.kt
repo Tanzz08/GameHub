@@ -52,4 +52,16 @@ class RemoteDataSource(private val apiService: ApiService) {
             emit(ApiResponse.Success(response))
         }.flowOn(Dispatchers.IO)
     }
+
+    suspend fun searchGames(query: String): Flow<ApiResponse<List<ResultsItem>>> {
+        return flow {
+            try {
+                val response = apiService.getSearchGame(apiKey = "92abf354b2924cdcb01f06e793527277", search = query)
+                emit(ApiResponse.Success(response.results))
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }

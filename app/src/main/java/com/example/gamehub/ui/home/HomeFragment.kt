@@ -1,13 +1,12 @@
 package com.example.gamehub.ui.home
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.data.source.Resource
 import com.example.core.domain.model.GamesModel
@@ -40,31 +39,24 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnSearch.setOnClickListener {
+            val uri = Uri.parse("gamehub://search")
+            startActivity(Intent(Intent.ACTION_VIEW, uri))
+        }
+
         setupAdapters()
         observeNewReleasesGames()
         observePopularGames()
-
-//        gameListAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(activity, DetailActivity::class.java)
-//            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
-//
-//        newReleasesAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(activity, DetailActivity::class.java)
-//            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
 
     }
 
     private fun setupAdapters() {
         newReleasesAdapter.onItemClick = { selectedData ->
-            startDetailActivity(selectedData.gameId.toInt(), selectedData)
+            startDetailActivity(selectedData.gameId!!.toInt(), selectedData)
         }
 
         gameListAdapter.onItemClick = { selectedData ->
-            startDetailActivity(selectedData.gameId.toInt(), selectedData)
+            startDetailActivity(selectedData.gameId!!.toInt(), selectedData)
         }
 
         with(binding.rvNewReleases) {
@@ -117,7 +109,7 @@ class HomeFragment : Fragment() {
                 is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    adapter.submitList(games.data) // Sesuaikan jika NewReleasesAdapter punya cara submitList yang berbeda
+                    adapter.submitList(games.data)
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE

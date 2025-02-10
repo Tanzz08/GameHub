@@ -54,22 +54,13 @@ class DetailActivity : AppCompatActivity() {
                             binding.progressBar.visibility = View.GONE
                             Log.d("DetailActivity", "ObserveGameDetail: Success, data = ${result.data}")
 
-
-                            binding.tvGenre.text = result.data?.genres?.firstOrNull()?.name
-                            binding.tvReleaseDate.text = result.data?.released
+                            binding.tvGenre.text = result.data?.genres ?: "No Genres"
+                            binding.tvReleaseDate.text = result.data?.released ?: "Unknown"
 
                             val description = result.data?.description ?: ""
                             binding.tvSummaryDesc.text = HtmlCompat.fromHtml(description, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-                            val genres = result.data?.genres?.map { it.name }
-                            val platforms = result.data?.parentPlatforms?.map { it.platform.name }
-
-                            val formattedPlatforms = platforms?.joinToString(separator = ", ") ?: "No Platforms"
-                            val formattedGenres = genres?.joinToString(separator = ", ") ?: "No Genres"
-
-                            binding.tvPlatform.text = formattedPlatforms
-                            binding.tvGenre.text = formattedGenres
-
+                            binding.tvPlatform.text = result.data?.parentPlatforms ?: "No Platforms"
 
                             showDetailGame(detailGame, result.data?.name, result.data?.backgroundImage)
                         }
@@ -88,6 +79,7 @@ class DetailActivity : AppCompatActivity() {
         }
     }
 
+
     private fun showDetailGame(detailGame: GamesModel?, name: String?, image: String?) {
         detailGame?.let {
             binding.tvTitleDetail.text = name ?: it.name
@@ -103,6 +95,8 @@ class DetailActivity : AppCompatActivity() {
             binding.fabFavorite.setOnClickListener {
                 statusFavorite = !statusFavorite
                 detailViewModel.setFavoriteGames(detailGame, statusFavorite)
+                detailViewModel.setNewFavoriteGames(detailGame, statusFavorite)
+                detailViewModel.updateFavoriteGame(detailGame, statusFavorite)
                 setStatusFavorite(statusFavorite)
             }
         }

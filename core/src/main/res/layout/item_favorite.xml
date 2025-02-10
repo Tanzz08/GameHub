@@ -33,19 +33,19 @@
 
         <TextView
             android:id="@+id/tv_game_title"
+            style="@style/opensSansFont"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="8dp"
-            tools:text="TextView"
-            style="@style/opensSansFont"
+            android:layout_marginEnd="16dp"
             android:textColor="@color/abuTerang"
             android:textSize="16sp"
             android:textStyle="bold"
-            card_view:layout_constraintEnd_toStartOf="@+id/imageView"
+            card_view:layout_constraintEnd_toEndOf="parent"
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            card_view:layout_constraintTop_toTopOf="parent" />
+            card_view:layout_constraintTop_toTopOf="parent"
+            tools:text="TextView" />
 
         <TextView
             android:id="@+id/tv_genre"
@@ -60,42 +60,19 @@
             card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
             card_view:layout_constraintTop_toBottomOf="@+id/tv_game_title" />
 
-        <TextView
-            android:id="@+id/tv_platform"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            tools:text="TextView"
-            style="@style/opensSansFont"
-            android:textColor="@color/abuTerang"
-            card_view:layout_constraintEnd_toEndOf="@+id/tv_genre"
-            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
-            card_view:layout_constraintTop_toBottomOf="@+id/tv_genre" />
 
         <TextView
             android:id="@+id/tv_release"
+            style="@style/opensSansFont"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="16dp"
-            tools:text="TextView"
-            style="@style/opensSansFont"
             android:textColor="@color/abuTerang"
             card_view:layout_constraintBottom_toBottomOf="parent"
-            card_view:layout_constraintEnd_toEndOf="@+id/tv_platform"
-            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo" />
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:contentDescription="@string/favorite_button"
-            card_view:layout_constraintBottom_toBottomOf="@+id/tv_game_title"
-            card_view:layout_constraintEnd_toEndOf="parent"
-            card_view:layout_constraintTop_toTopOf="@+id/tv_game_title"
-            card_view:srcCompat="@drawable/baseline_star_border_24" />
+            card_view:layout_constraintEnd_toEndOf="@+id/tv_genre"
+            card_view:layout_constraintStart_toEndOf="@+id/img_item_photo"
+            tools:text="TextView" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

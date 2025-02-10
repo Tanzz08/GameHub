@@ -10,19 +10,19 @@ data class GamesListEntity(
     val gameId: String,
 
     @ColumnInfo(name = "name")
-    val name: String,
+    val name: String?,
 
     @ColumnInfo(name = "background_image")
-    val backgroundImage: String,
+    val backgroundImage: String?,
 
     @ColumnInfo(name = "released")
-    val released: String,
+    val released: String?,
 
     @ColumnInfo(name = "genres")
-    val genres: String,
+    val genres: String?,
 
     @ColumnInfo(name = "parent_platforms")
-    val parentPlatforms: String,
+    val parentPlatforms: String?,
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = false

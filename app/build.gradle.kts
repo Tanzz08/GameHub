@@ -38,6 +38,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    dynamicFeatures += setOf(":favorite", ":search")
 }
 
 dependencies {
@@ -79,4 +80,13 @@ dependencies {
 
     // koin
     implementation(libs.koin.android)
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
+
+
+    implementation(libs.androidx.navigation.dynamic.features.fragment.v286)
+
+
+
 }
