@@ -87,7 +87,7 @@ class GameHubRepository(
             }
         }
 
-    override fun getGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>> {
+    override fun getGameDetail(gameId: Int): Flow<Resource<GamesModel>> {
         return flow {
             emit(Resource.Loading())
 
@@ -95,7 +95,8 @@ class GameHubRepository(
 
             when (response) {
                 is ApiResponse.Success -> {
-                    emit(Resource.Success(response.data))
+                    val gameDetail = DataMapper.mapResponseDetailToDomain(response.data)
+                    emit(Resource.Success(gameDetail))
                 }
 
                 is ApiResponse.Error -> {

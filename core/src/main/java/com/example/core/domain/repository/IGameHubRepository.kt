@@ -1,7 +1,6 @@
 package com.example.core.domain.repository
 
 import com.example.core.data.source.Resource
-import com.example.core.data.source.remote.response.GameDetailResponse
 import com.example.core.domain.model.GamesModel
 import kotlinx.coroutines.flow.Flow
 
@@ -13,7 +12,7 @@ interface IGameHubRepository {
 
     fun searchGames(query: String): Flow<Resource<List<GamesModel>>>
 
-    fun getGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>>
+    fun getGameDetail(gameId: Int): Flow<Resource<GamesModel>>
 
     fun getFavoriteGames(): Flow<List<GamesModel>>
 

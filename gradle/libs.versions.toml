@@ -12,6 +12,7 @@ constraintlayout = "2.2.0"
 lifecycleLivedataKtx = "2.8.7"
 lifecycleViewmodelKtx = "2.8.7"
 navigationDynamicFeaturesFragment = "2.7.6"
+navigationDynamicFeaturesFragmentVersion = "2.8.6"
 navigationFragmentKtx = "2.8.5"
 navigationUiKtx = "2.8.5"
 swiperefreshlayout = "1.1.0"
@@ -26,6 +27,7 @@ kotlinxCoroutines = "1.8.1"
 
 [libraries]
 androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigationDynamicFeaturesFragment" }
+androidx-navigation-dynamic-features-fragment-v286 = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigationDynamicFeaturesFragmentVersion" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }

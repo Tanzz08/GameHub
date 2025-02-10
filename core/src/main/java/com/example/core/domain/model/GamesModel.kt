@@ -11,5 +11,6 @@ data class GamesModel (
     val released: String?,
     val genres: String?,
     val parentPlatforms: String?,
+    val description: String? = null,
     val isFavorite: Boolean
 ): Parcelable

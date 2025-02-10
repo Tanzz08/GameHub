@@ -2,6 +2,7 @@ package com.example.core.utils
 
 import com.example.core.data.source.local.entity.GamesListEntity
 import com.example.core.data.source.local.entity.NewReleasesGames
+import com.example.core.data.source.remote.response.GameDetailResponse
 import com.example.core.data.source.remote.response.ResultsItem
 import com.example.core.domain.model.GamesModel
 
@@ -50,9 +51,22 @@ object DataMapper {
                 released = it.released ?: "",
                 genres = it.genres.toString() ?: "",
                 parentPlatforms = it.parentPlatforms.map { it.platform.name }.toString(),
-                isFavorite = false
+                isFavorite = false,
+
             )
         } ?: emptyList()
+
+    fun mapResponseDetailToDomain(input: GameDetailResponse): GamesModel =
+        GamesModel(
+            gameId = input.id.toString(),
+            name = input.name,
+            backgroundImage = input.backgroundImage ?: "",
+            released = input.released ?: "",
+            genres = input.genres.joinToString { it.name } ?: "",
+            description = input.description ?: "",
+            parentPlatforms = input.parentPlatforms.joinToString { it.platform.name } ?: "",
+            isFavorite = false
+        )
 
     fun mapEntitiesToDomain(input: List<GamesListEntity>): List<GamesModel> =
         input.map {

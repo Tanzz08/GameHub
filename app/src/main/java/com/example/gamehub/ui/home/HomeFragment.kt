@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.data.source.Resource
 import com.example.core.domain.model.GamesModel
@@ -49,18 +47,6 @@ class HomeFragment : Fragment() {
         setupAdapters()
         observeNewReleasesGames()
         observePopularGames()
-
-//        gameListAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(activity, DetailActivity::class.java)
-//            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
-//
-//        newReleasesAdapter.onItemClick = { selectedData ->
-//            val intent = Intent(activity, DetailActivity::class.java)
-//            intent.putExtra(DetailActivity.EXTRA_DATA, selectedData)
-//            startActivity(intent)
-//        }
 
     }
 
@@ -123,7 +109,7 @@ class HomeFragment : Fragment() {
                 is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    adapter.submitList(games.data) // Sesuaikan jika NewReleasesAdapter punya cara submitList yang berbeda
+                    adapter.submitList(games.data)
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE

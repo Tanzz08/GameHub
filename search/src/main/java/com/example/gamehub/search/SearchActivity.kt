@@ -6,12 +6,16 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.data.source.Resource
 import com.example.core.domain.model.GamesModel
 import com.example.gamehub.search.databinding.ActivitySearchBinding
 import com.example.gamehub.search.di.searchModule
 import com.example.gamehub.ui.detail.DetailActivity
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
 
@@ -19,6 +23,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySearchBinding
     private val searchViewModel: SearchViewModel by viewModel()
     private lateinit var adapter: SearchAdapter
+    private var searchJob: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,7 +64,16 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                return false // Tidak langsung mencari saat mengetik, hanya setelah submit
+                searchJob?.cancel()
+                searchJob = lifecycleScope.launch {
+                    delay(500)
+                    newText?.let {
+                        if (it.isNotEmpty()) {
+                            searchGames(it)
+                        }
+                    }
+                }
+                return true
             }
         })
     }

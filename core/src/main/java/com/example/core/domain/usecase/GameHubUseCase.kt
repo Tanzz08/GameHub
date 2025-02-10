@@ -11,7 +11,7 @@ interface GameHubUseCase {
 
     fun getNewReleasesGame(): Flow<Resource<List<GamesModel>>>
 
-    fun getGameDetail(gameId: Int): Flow<Resource<GameDetailResponse>>
+    fun getGameDetail(gameId: Int): Flow<Resource<GamesModel>>
 
     fun getFavoriteGame(): Flow<List<GamesModel>>
 
