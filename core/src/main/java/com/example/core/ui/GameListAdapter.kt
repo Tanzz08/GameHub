@@ -19,12 +19,15 @@ class GameListAdapter : ListAdapter<GamesModel, GameListAdapter.ListViewHolder>(
                 .load(data.backgroundImage)
                 .into(binding.ivItemImage)
             binding.tvItemTitle.text = data.name
-        }
 
-        init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
+        }
+
+        fun clear() {
+            itemView.setOnClickListener(null)
+            Glide.with(itemView.context).clear(binding.ivItemImage)
         }
 
     }
@@ -40,6 +43,11 @@ class GameListAdapter : ListAdapter<GamesModel, GameListAdapter.ListViewHolder>(
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val data = getItem(position)
         holder.bind(data)
+    }
+
+    override fun onViewRecycled(holder: ListViewHolder) {
+        holder.clear()
+        super.onViewRecycled(holder)
     }
 
     companion object {

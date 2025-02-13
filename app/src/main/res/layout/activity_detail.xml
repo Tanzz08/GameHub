@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/biruTuaKehitaman"
+    style="@style/backgroundColor"
     tools:context=".ui.detail.DetailActivity">
 
 
@@ -27,6 +27,7 @@
             android:id="@+id/imageView2"
             android:layout_width="0dp"
             android:layout_height="110dp"
+            android:importantForAccessibility="no"
             app:layout_constraintBottom_toBottomOf="@+id/img_hero"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,6 +49,7 @@
             android:layout_width="100dp"
             android:layout_height="138dp"
             android:layout_marginStart="16dp"
+            android:contentDescription="@string/cover_image_game"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintStart_toStartOf="parent"
@@ -176,6 +178,8 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:clickable="true"
+            android:contentDescription="@string/favorite"
+            android:focusable="true"
             app:layout_constraintBottom_toBottomOf="@+id/img_cover_detail"
             app:layout_constraintEnd_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="@+id/img_hero"

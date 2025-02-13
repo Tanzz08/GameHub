@@ -21,4 +21,8 @@
         <item name="android:textColor">@color/abuTerang</item>
     </style>
 
+    <style name="backgroundColor">
+        <item name="android:background">@color/biruTuaKehitaman</item>
+    </style>
+
 </resources>

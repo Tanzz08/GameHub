@@ -4,8 +4,6 @@ import FavoriteAdapter
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.core.domain.model.GamesModel
 import com.example.core.domain.model.ListItem
 import com.example.favorite.di.favoriteModule
-import com.example.gamehub.databinding.FragmentFavoriteBinding
+import com.example.favorite.databinding.FragmentFavoriteBinding
 import com.example.gamehub.ui.detail.DetailActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.context.loadKoinModules
@@ -25,12 +23,19 @@ class FavoriteFragment : Fragment() {
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
 
-    private val combinedAdapter = FavoriteAdapter()
+    private var combinedAdapter: FavoriteAdapter? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        loadKoinModules(favoriteModule)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        combinedAdapter = FavoriteAdapter()
         return binding.root
     }
 
@@ -39,9 +44,6 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
             binding.rvFavorite.layoutManager = LinearLayoutManager(context)
-
-            loadKoinModules(favoriteModule)
-
             binding.rvFavorite.adapter = combinedAdapter
 
             binding.btnSearch.setOnClickListener {
@@ -49,7 +51,7 @@ class FavoriteFragment : Fragment() {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
 
-            combinedAdapter.onItemClick = { listItem ->
+            combinedAdapter?.onItemClick = { listItem ->
                 when (listItem) {
                     is ListItem.FavoriteGame -> {
                         startDetailActivity(listItem.game.gameId!!.toInt(), listItem.game)
@@ -61,20 +63,19 @@ class FavoriteFragment : Fragment() {
                 }
             }
 
-            val handler = Handler(Looper.getMainLooper())
-
             favoriteViewModel.combinedListItems.observe(viewLifecycleOwner) { combinedListItems ->
-                handler.post {
-                    combinedAdapter.submitList(combinedListItems)
-                    binding.viewEmpty.root.visibility =
-                        if (combinedListItems.isNotEmpty()) View.GONE else View.VISIBLE
-                }
+                combinedAdapter?.submitList(combinedListItems)
+                binding.viewEmpty.root.visibility =
+                    if (combinedListItems.isNotEmpty()) View.GONE else View.VISIBLE
             }
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        combinedAdapter?.onItemClick = null
+        binding?.rvFavorite?.adapter = null
+        combinedAdapter = null
         _binding = null
     }
 
