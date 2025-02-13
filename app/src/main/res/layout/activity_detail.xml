@@ -104,9 +104,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_cover_detail"
             app:layout_constraintTop_toBottomOf="@+id/tvPlatform"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="TextView" />
 
         <TextView

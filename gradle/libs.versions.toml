@@ -26,8 +26,12 @@ retrofit = "2.11.0"
 loggingInterceptor = "4.12.0"
 recyclerview = "1.4.0"
 kotlinxCoroutines = "1.8.1"
+androidDatabaseSqlcipher = "4.5.4"
+sqliteKtx = "2.4.0"
 
 [libraries]
+android-database-sqlcipher = { module = "net.zetetic:android-database-sqlcipher", version.ref = "androidDatabaseSqlcipher" }
+androidx-sqlite-ktx = { module = "androidx.sqlite:sqlite-ktx", version.ref = "sqliteKtx" }
 androidx-navigation-dynamic-features-fragment-v286 = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "navigationDynamicFeaturesFragmentVersion" }
 androidx-navigation-fragment-ktx-v275 = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "navigationFragmentKtxVersion" }
 androidx-navigation-ui-ktx-v275 = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "navigationUiKtxVersion" }
