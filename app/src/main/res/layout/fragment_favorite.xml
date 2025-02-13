@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/biruTuaKehitaman">
+    style="@style/backgroundColor">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
@@ -39,7 +39,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start|center_vertical"
-                    android:text="Favorite"
+                    android:text="@string/favorite_title"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     android:textStyle="bold" />

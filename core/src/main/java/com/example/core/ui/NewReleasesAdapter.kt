@@ -13,29 +13,31 @@ class NewReleasesAdapter : ListAdapter<GamesModel, NewReleasesAdapter.ListViewHo
     var onItemClick: ((GamesModel) -> Unit)? = null
 
     inner class ListViewHolder(private var binding: ItemCardListBinding) :
-    RecyclerView.ViewHolder(binding.root){
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(data: GamesModel) {
             Glide.with(itemView.context)
                 .load(data.backgroundImage)
                 .into(binding.imgItemPhoto)
             binding.tvGameName.text = data.name
             binding.tvReleaseDate.text = data.released
-        }
 
-        init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(getItem(bindingAdapterPosition))
             }
         }
 
+        fun clear() {
+            itemView.setOnClickListener(null)
+            Glide.with(itemView.context).clear(binding.imgItemPhoto) 
+        }
+
     }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder =
         ListViewHolder(
             ItemCardListBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+                LayoutInflater.from(parent.context), parent, false
             )
         )
 
@@ -44,6 +46,10 @@ class NewReleasesAdapter : ListAdapter<GamesModel, NewReleasesAdapter.ListViewHo
         holder.bind(data)
     }
 
+    override fun onViewRecycled(holder: ListViewHolder) {
+        holder.clear()
+        super.onViewRecycled(holder)
+    }
 
     companion object {
         val DIFF_CALLBACK: DiffUtil.ItemCallback<GamesModel> =

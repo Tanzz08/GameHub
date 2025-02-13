@@ -132,6 +132,12 @@ class HomeFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        binding.rvPopularGame.recycledViewPool.clear()
+        binding.rvNewReleases.recycledViewPool.clear()
+        binding.rvPopularGame.adapter = null
+        binding.rvNewReleases.adapter = null
+        newReleasesAdapter.onItemClick = null
+        gameListAdapter.onItemClick = null
         _binding = null
     }
 }

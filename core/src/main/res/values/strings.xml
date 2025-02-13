@@ -2,12 +2,7 @@
 <resources>
     <string name="app_name">GameHub</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
     <string name="image_description">Image</string>
     <string name="image_detail">Image Detail</string>
-    <string name="developers">Developers</string>
-    <string name="publishers">Publishers</string>
-    <string name="favorite_button">Favorite Button</string>
     <string name="tidak_ada_data">tidak ada data\n</string>
 </resources>
