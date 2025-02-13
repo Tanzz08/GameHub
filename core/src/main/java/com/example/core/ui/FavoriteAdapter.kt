@@ -1,4 +1,4 @@
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.core.databinding.ItemFavoriteBinding
 
-import com.example.core.domain.model.GamesModel
 import com.example.core.domain.model.ListItem
 
 class FavoriteAdapter : ListAdapter<ListItem, FavoriteAdapter.ListViewHolder>(DIFF_CALLBACK) {
